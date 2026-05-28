@@ -1,51 +1,48 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
-import { Play, Check, X, ArrowRight, ChevronDown, Zap, Shield, Globe, TrendingUp, Users, FileText, Building2, Heart, Truck, Scale, Calculator, Star, Quote, Phone, MessageCircle, MapPin, Receipt, User, ShoppingCart, FilePen, CreditCard, Landmark, BarChart2, Wrench, Upload, ScanLine, Tag, Brain, Eye, Download, BookOpen, FileBarChart, GraduationCap, Video, Rocket, Bot } from "lucide-react";
-import { useState } from "react";
+import { MessageCircle, ArrowRight, Zap, Shield, Globe, TrendingUp, Users, FileText, Building2, Heart, Truck, Scale, Calculator, Star, Quote, Phone, MapPin, Receipt, User, ShoppingCart, FilePen, CreditCard, Landmark, BarChart2, Wrench, Upload, ScanLine, Tag, Brain, Eye, Download, BookOpen, FileBarChart, GraduationCap, Video, Rocket, Bot, Check, X, Play, ChevronDown } from "lucide-react";
+import { ROICalculator } from "@/components/sections/roi-calculator";
 import { CalendlyButton } from "@/components/ui/calendly-button";
-import { motion } from "framer-motion";
-import { track } from "@/lib/analytics";
+import { makeMetadata, productSchema, breadcrumbSchema } from "@/lib/seo";
+
+export const metadata = makeMetadata({
+  title: "Nulfinity | Intelligent Document Processing & AI Automation",
+  description: "Nulfinity automates document workflows with AI-powered OCR, data extraction, and validation. Process invoices, KYC, contracts, and more in seconds.",
+  path: "/",
+});
 
 export default function HomePage() {
-  const [roiInputs, setRoiInputs] = useState({
-    documentsPerMonth: 1000,
-    employeeCostPerHour: 500,
-    minutesPerDocument: 5,
+  const schema = productSchema({
+    name: "Nulfinity Platform",
+    description: "Enterprise AI-powered document processing platform for automating invoice processing, document extraction, and workflow automation.",
   });
 
-  const calculateROI = () => {
-    const { documentsPerMonth, employeeCostPerHour, minutesPerDocument } = roiInputs;
-    const hoursSavedPerMonth = (documentsPerMonth * minutesPerDocument * 0.85) / 60;
-    const costSavedPerMonth = hoursSavedPerMonth * employeeCostPerHour;
-    const annualSavings = costSavedPerMonth * 12;
-    const roi = ((annualSavings - (9999 * 12)) / (9999 * 12)) * 100;
-
-    return {
-      hoursSavedPerMonth: hoursSavedPerMonth.toFixed(1),
-      costSavedPerMonth: costSavedPerMonth.toFixed(0),
-      annualSavings: annualSavings.toFixed(0),
-      roi: roi.toFixed(0),
-    };
-  };
-
-  const roi = calculateROI();
+  const breadcrumbs = breadcrumbSchema([
+    { name: "Home", url: "/" },
+  ]);
 
   return (
     <div className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbs) }}
+      />
       {/* SECTION 1 — HERO SECTION */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50">
+      <section className="relative overflow-hidden bg-gradient-to-br from-blue-50 via-white to-indigo-50 min-h-[600px]">
         {/* Text Content */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 md:pt-24 pb-10">
           <div className="text-center">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight mb-6">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight mb-6 leading-tight">
               Your Documents. Processed in <span className="text-blue-600">Seconds</span>. Not Days.
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
               Automate the transformation of unstructured documents into clean, structured digital data, instantly.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center min-h-[52px]">
               <CalendlyButton source="hero_cta" className="flex items-center gap-2 px-7 py-3.5 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors">
                 <MessageCircle size={17} /> Book a Demo
               </CalendlyButton>
@@ -70,12 +67,12 @@ export default function HomePage() {
             100% { top: 100%; opacity: 0; }
           }
         `}</style>
-        <div className="relative w-full overflow-hidden" style={{ height: '320px' }}>
+        <div className="relative w-full overflow-hidden h-[320px]">
           {/* Left fade */}
           <div className="absolute left-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, #eef2ff 30%, transparent)' }} />
 
           {/* LEFT: 3 scrolling unstructured document rows */}
-          <div className="absolute top-0 bottom-0 left-0 w-[46%] flex flex-col justify-center gap-3 py-3" style={{ perspective: '500px', transform: 'perspective(500px) rotateY(10deg)' }}>
+          <div className="absolute top-0 bottom-0 left-0 w-[46%] flex flex-col justify-center gap-3 py-3" style={{ perspective: '500px', transform: 'perspective(500px) rotateY(10deg)', contain: 'layout' }}>
             {[
               {
                 speed: '8s',

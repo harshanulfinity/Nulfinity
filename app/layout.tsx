@@ -12,11 +12,15 @@ import Script from "next/script";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -50,6 +54,11 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="preconnect" href="https://www.clarity.ms" />
+        <link rel="dns-prefetch" href="https://calendly.com" />
+      </head>
       <body className="min-h-full flex flex-col">
         <Navbar />
         <main className="flex-1">{children}</main>
@@ -65,11 +74,11 @@ export default function RootLayout({
         />
         <CalendlyBadge />
         <GoogleAnalytics />
-        {/* Microsoft Clarity - using safe Script component */}
+        {/* Microsoft Clarity - lazy loaded after page load */}
         <Script
           id="microsoft-clarity"
           src="https://www.clarity.ms/tag/wwlivcvv1p"
-          strategy="afterInteractive"
+          strategy="lazyOnload"
         />
       </body>
     </html>

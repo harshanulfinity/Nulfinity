@@ -67,8 +67,8 @@ export function Footer() {
             </div>
             <div className="flex flex-wrap gap-4 text-xs text-gray-500">
               <Link href="/privacy" className="hover:text-white">Privacy Policy</Link>
-              <Link href="/privacy" className="hover:text-white">Terms of Service</Link>
-              <Link href="/privacy" className="hover:text-white">Cookie Policy</Link>
+              <Link href="/terms" className="hover:text-white">Terms of Service</Link>
+              <Link href="/cookies" className="hover:text-white">Cookie Policy</Link>
               <Link href="/about" className="hover:text-white">Security Overview</Link>
             </div>
           </div>

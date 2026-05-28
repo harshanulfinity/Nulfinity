@@ -1,0 +1,42 @@
+# Enterprise IDP Platform - ConfigMap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: enterprise-idp-config
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: config
+data:
+  ENVIRONMENT: "production"
+  LOG_LEVEL: "INFO"
+  DEBUG: "false"
+  MAX_WORKERS: "4"
+  REDIS_URL: "redis://redis-service:6379/0"
+  ELASTICSEARCH_URL: "http://elasticsearch-service:9200"
+  MINIO_ENDPOINT: "minio-service:9000"
+  CORS_ORIGINS: "https://enterprise-idp.com,https://app.enterprise-idp.com"
+  RATE_LIMIT_ENABLED: "true"
+  SECURITY_ENABLED: "true"
+  MONITORING_ENABLED: "true"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: enterprise-idp-config
+  namespace: enterprise-idp-staging
+  labels:
+    app: enterprise-idp
+    component: config
+data:
+  ENVIRONMENT: "staging"
+  LOG_LEVEL: "DEBUG"
+  DEBUG: "true"
+  MAX_WORKERS: "2"
+  REDIS_URL: "redis://redis-service:6379/0"
+  ELASTICSEARCH_URL: "http://elasticsearch-service:9200"
+  MINIO_ENDPOINT: "minio-service:9000"
+  CORS_ORIGINS: "https://staging.enterprise-idp.com"
+  RATE_LIMIT_ENABLED: "true"
+  SECURITY_ENABLED: "true"
+  MONITORING_ENABLED: "true"

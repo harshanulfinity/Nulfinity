@@ -1,0 +1,244 @@
+# Enterprise IDP Platform - Application Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enterprise-idp-app
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: app
+    version: v1.0.0
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: enterprise-idp
+      component: app
+  template:
+    metadata:
+      labels:
+        app: enterprise-idp
+        component: app
+        version: v1.0.0
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: enterprise-idp-app
+        image: ghcr.io/enterprise-idp/enterprise-idp:latest
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: DATABASE_URL
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: SECRET_KEY
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: REDIS_PASSWORD
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: MINIO_ACCESS_KEY
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: MINIO_SECRET_KEY
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: JWT_SECRET
+        envFrom:
+        - configMapRef:
+            name: enterprise-idp-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: uploads
+          mountPath: /app/uploads
+        - name: logs
+          mountPath: /app/logs
+        - name: exports
+          mountPath: /app/exports
+        - name: temp
+          mountPath: /app/temp
+      volumes:
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: enterprise-idp-uploads-pvc
+      - name: logs
+        persistentVolumeClaim:
+          claimName: enterprise-idp-logs-pvc
+      - name: exports
+        persistentVolumeClaim:
+          claimName: enterprise-idp-exports-pvc
+      - name: temp
+        emptyDir: {}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      restartPolicy: Always
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: enterprise-idp-app
+  namespace: enterprise-idp-staging
+  labels:
+    app: enterprise-idp
+    component: app
+    version: staging
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: enterprise-idp
+      component: app
+  template:
+    metadata:
+      labels:
+        app: enterprise-idp
+        component: app
+        version: staging
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8000"
+        prometheus.io/path: "/metrics"
+    spec:
+      containers:
+      - name: enterprise-idp-app
+        image: ghcr.io/enterprise-idp/enterprise-idp:develop
+        ports:
+        - containerPort: 8000
+          name: http
+          protocol: TCP
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: DATABASE_URL
+        - name: SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: SECRET_KEY
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: REDIS_PASSWORD
+        - name: MINIO_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: MINIO_ACCESS_KEY
+        - name: MINIO_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: MINIO_SECRET_KEY
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: enterprise-idp-secrets
+              key: JWT_SECRET
+        envFrom:
+        - configMapRef:
+            name: enterprise-idp-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "100m"
+          limits:
+            memory: "512Mi"
+            cpu: "250m"
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: uploads
+          mountPath: /app/uploads
+        - name: logs
+          mountPath: /app/logs
+        - name: exports
+          mountPath: /app/exports
+        - name: temp
+          mountPath: /app/temp
+      volumes:
+      - name: uploads
+        persistentVolumeClaim:
+          claimName: enterprise-idp-uploads-staging-pvc
+      - name: logs
+        persistentVolumeClaim:
+          claimName: enterprise-idp-logs-staging-pvc
+      - name: exports
+        persistentVolumeClaim:
+          claimName: enterprise-idp-exports-staging-pvc
+      - name: temp
+        emptyDir: {}
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
+      restartPolicy: Always

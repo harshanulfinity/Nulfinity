@@ -1,0 +1,123 @@
+# Enterprise IDP Platform - Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: enterprise-idp-app-service
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: app
+spec:
+  selector:
+    app: enterprise-idp
+    component: app
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: enterprise-idp-app-service
+  namespace: enterprise-idp-staging
+  labels:
+    app: enterprise-idp
+    component: app
+spec:
+  selector:
+    app: enterprise-idp
+    component: app
+  ports:
+  - name: http
+    port: 80
+    targetPort: 8000
+    protocol: TCP
+  type: ClusterIP
+---
+# Database Services
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: postgres
+spec:
+  selector:
+    app: enterprise-idp
+    component: postgres
+  ports:
+  - name: postgres
+    port: 5432
+    targetPort: 5432
+    protocol: TCP
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis-service
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: redis
+spec:
+  selector:
+    app: enterprise-idp
+    component: redis
+  ports:
+  - name: redis
+    port: 6379
+    targetPort: 6379
+    protocol: TCP
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch-service
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: elasticsearch
+spec:
+  selector:
+    app: enterprise-idp
+    component: elasticsearch
+  ports:
+  - name: http
+    port: 9200
+    targetPort: 9200
+    protocol: TCP
+  - name: transport
+    port: 9300
+    targetPort: 9300
+    protocol: TCP
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+  namespace: enterprise-idp
+  labels:
+    app: enterprise-idp
+    component: minio
+spec:
+  selector:
+    app: enterprise-idp
+    component: minio
+  ports:
+  - name: http
+    port: 9000
+    targetPort: 9000
+    protocol: TCP
+  - name: console
+    port: 9001
+    targetPort: 9001
+    protocol: TCP
+  type: ClusterIP

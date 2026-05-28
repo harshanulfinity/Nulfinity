@@ -1,0 +1,16 @@
+# Enterprise IDP Platform - Kubernetes Namespace
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: enterprise-idp
+  labels:
+    name: enterprise-idp
+    environment: production
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: enterprise-idp-staging
+  labels:
+    name: enterprise-idp-staging
+    environment: staging

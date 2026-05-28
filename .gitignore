@@ -33,6 +33,11 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# backend environment files
+backend/document-extractor/app.env
+backend/document-extractor/.env
+backend/document-extractor/env.local
+
 # vercel
 .vercel
 

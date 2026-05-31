@@ -73,12 +73,12 @@ export default function HomePage() {
         `}</style>
         
         {/* Desktop View */}
-        <div className="relative w-full overflow-hidden h-[320px]">
+        <div className="relative w-full overflow-hidden h-[240px]">
           {/* Left fade */}
           <div className="absolute left-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, #eef2ff 30%, transparent)' }} />
 
           {/* LEFT: 3 scrolling unstructured document rows */}
-          <div className="absolute top-0 bottom-0 left-0 w-[46%] flex flex-col justify-center gap-3 py-3" style={{ perspective: '500px', transform: 'perspective(500px) rotateY(10deg)', contain: 'layout' }}>
+          <div className="absolute top-0 bottom-0 left-0 w-[46%] flex flex-col justify-center gap-2 py-2" style={{ perspective: '500px', transform: 'perspective(500px) rotateY(10deg)', contain: 'layout' }}>
             {[
               {
                 speed: '8s',
@@ -126,24 +126,24 @@ export default function HomePage() {
                 ],
               },
             ].map((row, ri) => (
-              <div key={ri} className="overflow-hidden" style={{ transform: `translateY(${(ri - 1) * 52}px)` }}>
+              <div key={ri} className="overflow-hidden" style={{ transform: `translateY(${(ri - 1) * 40}px)` }}>
                 <div
-                  className="flex gap-3"
+                  className="flex gap-2"
                   style={{ width: 'max-content', animation: `scrollDocs ${row.speed} linear infinite` }}
                 >
                   {[...row.cards, ...row.cards].map((doc, ci) => (
                     <div
                       key={ci}
-                      className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-16 h-12"
+                      className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-12 h-9"
                       style={{ transform: `rotate(${doc.rot})` }}
                     >
                       <div className="flex items-center gap-1 mb-2">
-                        <doc.icon size={10} className="text-gray-300" />
-                        <div className="h-1.5 bg-gray-200 rounded w-14" />
+                        <doc.icon size={6} className="text-gray-300" />
+                        <div className="h-0.5 bg-gray-200 rounded w-8" />
                       </div>
-                      <div className="space-y-1.5">
+                      <div className="space-y-1">
                         {doc.lines.map((w, li) => (
-                          <div key={li} className="h-1 bg-gray-200 rounded" style={{ width: `${w}%` }} />
+                          <div key={li} className="h-0.5 bg-gray-200 rounded" style={{ width: `${w}%` }} />
                         ))}
                       </div>
                     </div>
@@ -156,18 +156,18 @@ export default function HomePage() {
           {/* CENTER: Nulfinity Processor Hub */}
           <div className="absolute top-1/2 z-30" style={{ left: 'calc(50% - 16px)', transform: 'translateX(-50%) translateY(-50%)' }}>
             <div className="relative flex items-center justify-center">
-              <div className="relative bg-white rounded-xl px-4 py-2.5 shadow-2xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
-                <Image src="/NULFINITY.svg" alt="Nulfinity" width={168} height={38} priority />
+              <div className="relative bg-white rounded-xl px-3 py-2 shadow-2xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
+                <Image src="/NULFINITY.svg" alt="Nulfinity" width={130} height={30} priority />
                 {/* Scanner sweep line */}
                 <div className="absolute left-0 right-0 h-px pointer-events-none" style={{ background: 'linear-gradient(to right, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)', boxShadow: '0 0 8px 3px rgba(96,165,250,0.7)', animation: 'scanLine 2s linear infinite' }} />
                 {/* Scanner glow trail */}
-                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '40px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
+                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '30px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
               </div>
             </div>
           </div>
 
           {/* RIGHT: 3 scrolling processed result rows */}
-          <div className="absolute top-0 bottom-0 right-0 w-[48%] flex flex-col justify-center gap-3 py-3" style={{ perspective: '500px', transform: 'perspective(500px) rotateY(-10deg)' }}>
+          <div className="absolute top-0 bottom-0 right-0 w-[48%] flex flex-col justify-center gap-2 py-2" style={{ perspective: '500px', transform: 'perspective(500px) rotateY(-10deg)' }}>
             {[
               {
                 speed: '8s',
@@ -200,21 +200,21 @@ export default function HomePage() {
                 ],
               },
             ].map((row, ri) => (
-              <div key={ri} className="overflow-hidden" style={{ transform: `translateY(${(ri - 1) * 52}px)` }}>
+              <div key={ri} className="overflow-hidden" style={{ transform: `translateY(${(ri - 1) * 40}px)` }}>
                 <div
-                  className="flex gap-3"
+                  className="flex gap-2"
                   style={{ width: 'max-content', animation: `scrollDocs ${row.speed} linear infinite` }}
                 >
                   {[...row.cards, ...row.cards].map((card, ci) => (
-                    <div key={ci} className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-gray-100 p-2.5 w-44 h-14 flex items-center gap-2.5">
-                      <div className={`w-7 h-7 ${card.iconBg} rounded-md flex items-center justify-center flex-shrink-0`}>
-                        <card.Icon className={card.iconColor} size={13} />
+                    <div key={ci} className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-gray-100 p-2 w-36 h-11 flex items-center gap-2">
+                      <div className={`w-5 h-5 ${card.iconBg} rounded-md flex items-center justify-center flex-shrink-0`}>
+                        <card.Icon className={card.iconColor} size={9} />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <p className="text-xs font-semibold text-gray-800 truncate">{card.title}</p>
-                        <p className="text-xs text-gray-500">{card.field}: <span className="font-semibold text-gray-700">{card.value}</span></p>
+                        <p className="text-[9px] font-semibold text-gray-800 truncate">{card.title}</p>
+                        <p className="text-[9px] text-gray-500">{card.field}: <span className="font-semibold text-gray-700">{card.value}</span></p>
                       </div>
-                      <Check className="text-green-500 flex-shrink-0" size={12} />
+                      <Check className="text-green-500 flex-shrink-0" size={8} />
                     </div>
                   ))}
                 </div>
@@ -227,12 +227,12 @@ export default function HomePage() {
         </div>
 
         {/* Mobile View */}
-        <div className="block md:hidden relative w-full overflow-hidden h-[280px]">
+        <div className="block md:hidden relative w-full overflow-hidden h-[200px]">
           {/* Top fade */}
-          <div className="absolute top-0 left-0 right-0 h-12 z-20 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #eef2ff 30%, transparent)' }} />
+          <div className="absolute top-0 left-0 right-0 h-8 z-20 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #eef2ff 30%, transparent)' }} />
 
           {/* TOP: Scrolling unstructured documents */}
-          <div className="absolute top-0 left-0 right-0 h-[45%] flex items-center py-2">
+          <div className="absolute top-0 left-0 right-0 h-[45%] flex items-center py-1">
             <div className="overflow-hidden w-full">
               <div
                 className="flex gap-2"
@@ -250,12 +250,12 @@ export default function HomePage() {
                 ].map((doc, ci) => (
                   <div
                     key={ci}
-                    className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-14 h-10"
+                    className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-10 h-8"
                     style={{ transform: `rotate(${doc.rot})` }}
                   >
                     <div className="flex items-center gap-1 mb-1">
-                      <doc.icon size={8} className="text-gray-300" />
-                      <div className="h-1 bg-gray-200 rounded w-10" />
+                      <doc.icon size={6} className="text-gray-300" />
+                      <div className="h-0.5 bg-gray-200 rounded w-8" />
                     </div>
                     <div className="space-y-0.5">
                       {doc.lines.slice(0, 4).map((w, li) => (
@@ -276,12 +276,12 @@ export default function HomePage() {
                 ].map((doc, ci) => (
                   <div
                     key={`dup-${ci}`}
-                    className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-14 h-10"
+                    className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-10 h-8"
                     style={{ transform: `rotate(${doc.rot})` }}
                   >
                     <div className="flex items-center gap-1 mb-1">
-                      <doc.icon size={8} className="text-gray-300" />
-                      <div className="h-1 bg-gray-200 rounded w-10" />
+                      <doc.icon size={6} className="text-gray-300" />
+                      <div className="h-0.5 bg-gray-200 rounded w-8" />
                     </div>
                     <div className="space-y-0.5">
                       {doc.lines.slice(0, 4).map((w, li) => (
@@ -297,18 +297,18 @@ export default function HomePage() {
           {/* CENTER: Nulfinity Processor Hub */}
           <div className="absolute top-1/2 left-1/2 z-30" style={{ transform: 'translate(-50%, -50%)' }}>
             <div className="relative flex items-center justify-center">
-              <div className="relative bg-white rounded-lg px-2 py-1.5 shadow-xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
-                <Image src="/NULFINITY.svg" alt="Nulfinity" width={100} height={23} priority />
+              <div className="relative bg-white rounded-lg px-1.5 py-1 shadow-xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
+                <Image src="/NULFINITY.svg" alt="Nulfinity" width={80} height={18} priority />
                 {/* Scanner sweep line */}
                 <div className="absolute left-0 right-0 h-px pointer-events-none" style={{ background: 'linear-gradient(to right, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)', boxShadow: '0 0 6px 2px rgba(96,165,250,0.7)', animation: 'scanLine 2s linear infinite' }} />
                 {/* Scanner glow trail */}
-                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '25px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
+                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '20px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
               </div>
             </div>
           </div>
 
           {/* BOTTOM: Scrolling processed results */}
-          <div className="absolute bottom-0 left-0 right-0 h-[45%] flex items-center py-2">
+          <div className="absolute bottom-0 left-0 right-0 h-[45%] flex items-center py-1">
             <div className="overflow-hidden w-full">
               <div
                 className="flex gap-2"
@@ -324,15 +324,15 @@ export default function HomePage() {
                   { Icon: ShoppingCart, title: 'Purchase Order', iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600', field: 'Items', value: '24' },
                   { Icon: BarChart2, title: 'Audit Report', iconBg: 'bg-blue-100', iconColor: 'text-blue-600', field: 'Findings', value: '3' },
                 ].map((card, ci) => (
-                  <div key={ci} className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-gray-100 p-2 w-36 h-12 flex items-center gap-2">
-                    <div className={`w-6 h-6 ${card.iconBg} rounded-md flex items-center justify-center flex-shrink-0`}>
-                      <card.Icon className={card.iconColor} size={11} />
+                  <div key={ci} className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-gray-100 p-1.5 w-28 h-9 flex items-center gap-1.5">
+                    <div className={`w-5 h-5 ${card.iconBg} rounded-md flex items-center justify-center flex-shrink-0`}>
+                      <card.Icon className={card.iconColor} size={9} />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[10px] font-semibold text-gray-800 truncate">{card.title}</p>
-                      <p className="text-[10px] text-gray-500">{card.field}: <span className="font-semibold text-gray-700">{card.value}</span></p>
+                      <p className="text-[9px] font-semibold text-gray-800 truncate">{card.title}</p>
+                      <p className="text-[9px] text-gray-500">{card.field}: <span className="font-semibold text-gray-700">{card.value}</span></p>
                     </div>
-                    <Check className="text-green-500 flex-shrink-0" size={10} />
+                    <Check className="text-green-500 flex-shrink-0" size={8} />
                   </div>
                 ))}
                 {[
@@ -361,7 +361,7 @@ export default function HomePage() {
           </div>
 
           {/* Bottom fade */}
-          <div className="absolute bottom-0 left-0 right-0 h-12 z-20 pointer-events-none" style={{ background: 'linear-gradient(to top, #eef2ff 30%, transparent)' }} />
+          <div className="absolute bottom-0 left-0 right-0 h-8 z-20 pointer-events-none" style={{ background: 'linear-gradient(to top, #eef2ff 30%, transparent)' }} />
         </div>
 
         {/* Stats bar */}

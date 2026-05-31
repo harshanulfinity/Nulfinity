@@ -73,7 +73,7 @@ export default function HomePage() {
         `}</style>
         
         {/* Desktop View */}
-        <div className="relative w-full overflow-hidden h-[240px]">
+        <div className="hidden md:block relative w-full overflow-hidden h-[240px]">
           {/* Left fade */}
           <div className="absolute left-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, #eef2ff 30%, transparent)' }} />
 

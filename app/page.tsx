@@ -57,6 +57,10 @@ export default function HomePage() {
             0%   { transform: translateX(-50%); }
             100% { transform: translateX(0%); }
           }
+          @keyframes scrollDocsMobile {
+            0%   { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+          }
           @keyframes scanLine {
             0%   { top: -4px; opacity: 1; }
             85%  { opacity: 1; }
@@ -67,7 +71,9 @@ export default function HomePage() {
             100% { top: 100%; opacity: 0; }
           }
         `}</style>
-        <div className="relative w-full overflow-hidden h-[320px]">
+        
+        {/* Desktop View */}
+        <div className="hidden md:block relative w-full overflow-hidden h-[320px]">
           {/* Left fade */}
           <div className="absolute left-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, #eef2ff 30%, transparent)' }} />
 
@@ -218,6 +224,144 @@ export default function HomePage() {
 
           {/* Right fade */}
           <div className="absolute right-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style={{ background: 'linear-gradient(to left, #eef2ff 30%, transparent)' }} />
+        </div>
+
+        {/* Mobile View */}
+        <div className="md:hidden relative w-full overflow-hidden h-[280px]">
+          {/* Top fade */}
+          <div className="absolute top-0 left-0 right-0 h-12 z-20 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #eef2ff 30%, transparent)' }} />
+
+          {/* TOP: Scrolling unstructured documents */}
+          <div className="absolute top-0 left-0 right-0 h-[45%] flex items-center py-2">
+            <div className="overflow-hidden w-full">
+              <div
+                className="flex gap-2"
+                style={{ width: 'max-content', animation: 'scrollDocsMobile 15s linear infinite' }}
+              >
+                {[
+                  { icon: Receipt, rot: '-1deg', lines: [85, 60, 90, 45, 70] },
+                  { icon: FileText, rot: '2deg', lines: [100, 80, 60, 95, 50] },
+                  { icon: BarChart2, rot: '-2deg', lines: [70, 100, 85, 60, 90] },
+                  { icon: FilePen, rot: '1deg', lines: [55, 80, 65, 90, 40] },
+                  { icon: CreditCard, rot: '-1.5deg', lines: [90, 55, 70, 85, 50] },
+                  { icon: FileText, rot: '1.5deg', lines: [65, 90, 50, 75, 85] },
+                  { icon: Receipt, rot: '-2deg', lines: [80, 45, 95, 60, 70] },
+                  { icon: BarChart2, rot: '0.5deg', lines: [75, 90, 55, 80, 65] },
+                ].map((doc, ci) => (
+                  <div
+                    key={ci}
+                    className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-14 h-10"
+                    style={{ transform: `rotate(${doc.rot})` }}
+                  >
+                    <div className="flex items-center gap-1 mb-1">
+                      <doc.icon size={8} className="text-gray-300" />
+                      <div className="h-1 bg-gray-200 rounded w-10" />
+                    </div>
+                    <div className="space-y-0.5">
+                      {doc.lines.slice(0, 4).map((w, li) => (
+                        <div key={li} className="h-0.5 bg-gray-200 rounded" style={{ width: `${w}%` }} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+                {[
+                  { icon: Receipt, rot: '-1deg', lines: [85, 60, 90, 45, 70] },
+                  { icon: FileText, rot: '2deg', lines: [100, 80, 60, 95, 50] },
+                  { icon: BarChart2, rot: '-2deg', lines: [70, 100, 85, 60, 90] },
+                  { icon: FilePen, rot: '1deg', lines: [55, 80, 65, 90, 40] },
+                  { icon: CreditCard, rot: '-1.5deg', lines: [90, 55, 70, 85, 50] },
+                  { icon: FileText, rot: '1.5deg', lines: [65, 90, 50, 75, 85] },
+                  { icon: Receipt, rot: '-2deg', lines: [80, 45, 95, 60, 70] },
+                  { icon: BarChart2, rot: '0.5deg', lines: [75, 90, 55, 80, 65] },
+                ].map((doc, ci) => (
+                  <div
+                    key={`dup-${ci}`}
+                    className="flex-shrink-0 bg-white rounded-md shadow-sm border border-gray-200 p-1 w-14 h-10"
+                    style={{ transform: `rotate(${doc.rot})` }}
+                  >
+                    <div className="flex items-center gap-1 mb-1">
+                      <doc.icon size={8} className="text-gray-300" />
+                      <div className="h-1 bg-gray-200 rounded w-10" />
+                    </div>
+                    <div className="space-y-0.5">
+                      {doc.lines.slice(0, 4).map((w, li) => (
+                        <div key={li} className="h-0.5 bg-gray-200 rounded" style={{ width: `${w}%` }} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* CENTER: Nulfinity Processor Hub */}
+          <div className="absolute top-1/2 left-1/2 z-30" style={{ transform: 'translate(-50%, -50%)' }}>
+            <div className="relative flex items-center justify-center">
+              <div className="relative bg-white rounded-lg px-3 py-2 shadow-xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
+                <Image src="/NULFINITY.svg" alt="Nulfinity" width={120} height={27} priority />
+                {/* Scanner sweep line */}
+                <div className="absolute left-0 right-0 h-px pointer-events-none" style={{ background: 'linear-gradient(to right, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)', boxShadow: '0 0 6px 2px rgba(96,165,250,0.7)', animation: 'scanLine 2s linear infinite' }} />
+                {/* Scanner glow trail */}
+                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '30px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
+              </div>
+            </div>
+          </div>
+
+          {/* BOTTOM: Scrolling processed results */}
+          <div className="absolute bottom-0 left-0 right-0 h-[45%] flex items-center py-2">
+            <div className="overflow-hidden w-full">
+              <div
+                className="flex gap-2"
+                style={{ width: 'max-content', animation: 'scrollDocs 15s linear infinite' }}
+              >
+                {[
+                  { Icon: BarChart2, title: 'Financial Report', iconBg: 'bg-blue-100', iconColor: 'text-blue-600', field: 'Revenue', value: '$2.3M' },
+                  { Icon: Receipt, title: 'Invoice (OCR)', iconBg: 'bg-green-100', iconColor: 'text-green-600', field: 'Amount', value: '$45,789' },
+                  { Icon: FileText, title: 'Legal Contract', iconBg: 'bg-purple-100', iconColor: 'text-purple-600', field: 'Clauses', value: '15' },
+                  { Icon: User, title: 'Resume Extract', iconBg: 'bg-orange-100', iconColor: 'text-orange-600', field: 'Skills', value: '12' },
+                  { Icon: Landmark, title: 'Bank Statement', iconBg: 'bg-indigo-100', iconColor: 'text-indigo-600', field: 'Balance', value: '$8,420' },
+                  { Icon: Heart, title: 'Medical Record', iconBg: 'bg-red-100', iconColor: 'text-red-500', field: 'Diagnosis', value: 'ICD-10' },
+                  { Icon: ShoppingCart, title: 'Purchase Order', iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600', field: 'Items', value: '24' },
+                  { Icon: BarChart2, title: 'Audit Report', iconBg: 'bg-blue-100', iconColor: 'text-blue-600', field: 'Findings', value: '3' },
+                ].map((card, ci) => (
+                  <div key={ci} className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-gray-100 p-2 w-36 h-12 flex items-center gap-2">
+                    <div className={`w-6 h-6 ${card.iconBg} rounded-md flex items-center justify-center flex-shrink-0`}>
+                      <card.Icon className={card.iconColor} size={11} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-semibold text-gray-800 truncate">{card.title}</p>
+                      <p className="text-[10px] text-gray-500">{card.field}: <span className="font-semibold text-gray-700">{card.value}</span></p>
+                    </div>
+                    <Check className="text-green-500 flex-shrink-0" size={10} />
+                  </div>
+                ))}
+                {[
+                  { Icon: BarChart2, title: 'Financial Report', iconBg: 'bg-blue-100', iconColor: 'text-blue-600', field: 'Revenue', value: '$2.3M' },
+                  { Icon: Receipt, title: 'Invoice (OCR)', iconBg: 'bg-green-100', iconColor: 'text-green-600', field: 'Amount', value: '$45,789' },
+                  { Icon: FileText, title: 'Legal Contract', iconBg: 'bg-purple-100', iconColor: 'text-purple-600', field: 'Clauses', value: '15' },
+                  { Icon: User, title: 'Resume Extract', iconBg: 'bg-orange-100', iconColor: 'text-orange-600', field: 'Skills', value: '12' },
+                  { Icon: Landmark, title: 'Bank Statement', iconBg: 'bg-indigo-100', iconColor: 'text-indigo-600', field: 'Balance', value: '$8,420' },
+                  { Icon: Heart, title: 'Medical Record', iconBg: 'bg-red-100', iconColor: 'text-red-500', field: 'Diagnosis', value: 'ICD-10' },
+                  { Icon: ShoppingCart, title: 'Purchase Order', iconBg: 'bg-yellow-100', iconColor: 'text-yellow-600', field: 'Items', value: '24' },
+                  { Icon: BarChart2, title: 'Audit Report', iconBg: 'bg-blue-100', iconColor: 'text-blue-600', field: 'Findings', value: '3' },
+                ].map((card, ci) => (
+                  <div key={`dup-${ci}`} className="flex-shrink-0 bg-white rounded-lg shadow-sm border border-gray-100 p-2 w-36 h-12 flex items-center gap-2">
+                    <div className={`w-6 h-6 ${card.iconBg} rounded-md flex items-center justify-center flex-shrink-0`}>
+                      <card.Icon className={card.iconColor} size={11} />
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[10px] font-semibold text-gray-800 truncate">{card.title}</p>
+                      <p className="text-[10px] text-gray-500">{card.field}: <span className="font-semibold text-gray-700">{card.value}</span></p>
+                    </div>
+                    <Check className="text-green-500 flex-shrink-0" size={10} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom fade */}
+          <div className="absolute bottom-0 left-0 right-0 h-12 z-20 pointer-events-none" style={{ background: 'linear-gradient(to top, #eef2ff 30%, transparent)' }} />
         </div>
 
         {/* Stats bar */}

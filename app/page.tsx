@@ -73,7 +73,7 @@ export default function HomePage() {
         `}</style>
         
         {/* Desktop View */}
-        <div className="hidden md:block relative w-full overflow-hidden h-[320px]">
+        <div className="relative w-full overflow-hidden h-[320px]">
           {/* Left fade */}
           <div className="absolute left-0 top-0 bottom-0 w-32 z-20 pointer-events-none" style={{ background: 'linear-gradient(to right, #eef2ff 30%, transparent)' }} />
 
@@ -227,7 +227,7 @@ export default function HomePage() {
         </div>
 
         {/* Mobile View */}
-        <div className="md:hidden relative w-full overflow-hidden h-[280px]">
+        <div className="block md:hidden relative w-full overflow-hidden h-[280px]">
           {/* Top fade */}
           <div className="absolute top-0 left-0 right-0 h-12 z-20 pointer-events-none" style={{ background: 'linear-gradient(to bottom, #eef2ff 30%, transparent)' }} />
 
@@ -297,12 +297,12 @@ export default function HomePage() {
           {/* CENTER: Nulfinity Processor Hub */}
           <div className="absolute top-1/2 left-1/2 z-30" style={{ transform: 'translate(-50%, -50%)' }}>
             <div className="relative flex items-center justify-center">
-              <div className="relative bg-white rounded-lg px-3 py-2 shadow-xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
-                <Image src="/NULFINITY.svg" alt="Nulfinity" width={120} height={27} priority />
+              <div className="relative bg-white rounded-lg px-2 py-1.5 shadow-xl ring-2 ring-blue-400 flex items-center justify-center overflow-hidden">
+                <Image src="/NULFINITY.svg" alt="Nulfinity" width={100} height={23} priority />
                 {/* Scanner sweep line */}
                 <div className="absolute left-0 right-0 h-px pointer-events-none" style={{ background: 'linear-gradient(to right, transparent, #3b82f6, #60a5fa, #3b82f6, transparent)', boxShadow: '0 0 6px 2px rgba(96,165,250,0.7)', animation: 'scanLine 2s linear infinite' }} />
                 {/* Scanner glow trail */}
-                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '30px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
+                <div className="absolute left-0 right-0 pointer-events-none" style={{ height: '25px', background: 'linear-gradient(to bottom, rgba(96,165,250,0.12), transparent)', animation: 'scanGlow 2s linear infinite' }} />
               </div>
             </div>
           </div>
